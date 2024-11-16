@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Building - Job Finder Platform</title>
+  <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background-color: #f5f7fb;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      background-color: #ffffff;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #007bff;
+    }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4rem 2rem;
+      background-color: #eef7ff;
+    }
+
+    .hero-text {
+      flex: 1;
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-text h1 {
+      font-size: 3.5rem;
+      color: #007bff;
+    }
+
+    .hero-text p {
+      margin: 1.5rem 0;
+      font-size: 1.5rem;
+      color: #555;
+    }
+
+    .hero-buttons {
+      margin-top: 1.5rem;
+    }
+
+    .hero-buttons button {
+      padding: 1rem 2rem;
+      margin-right: 1rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      background-color: #007bff;
+      color: #fff;
+      transition: background-color 0.3s ease;
+    }
+
+    .hero-buttons button:hover {
+      background-color: #0056b3;
+    }
+
+    .hero-image {
+      flex: 1;
+      max-width: 500px;
+      height: auto;
+      background-color: #ccc;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Profile Section */
+    .profile-section {
+      padding: 3rem 2rem;
+      text-align: center;
+    }
+
+    .profile-section h2 {
+      font-size: 2.5rem;
+      color: #007bff;
+      margin-bottom: 2rem;
+    }
+
+    .input-field {
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .input-field input {
+      padding: 1rem;
+      width: 100%;
+      max-width: 400px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .input-field button {
+      padding: 1rem 2rem;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .input-field button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero-text h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-text p {
+        font-size: 1.2rem;
+      }
+
+      .hero-buttons button {
+        font-size: 1rem;
+        padding: 0.8rem 1.5rem;
+      }
+
+      .hero-image {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">JoltAI</div>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/search">Find Job</a></li>
+        <li><a href="/profile">Build Profile</a></li>
+        <li><a href="/quiz">Quiz</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Build Your Professional Profile</h1>
+      <p>Get started by adding your LinkedIn profile and upload your resume to complete your professional profile.</p>
+    </div>
+    <div class="hero-image">
+      <p>Image Placeholder</p>
+    </div>
+  </section>
+
+  <!-- Profile Section -->
+  <section class="profile-section">
+    <h2>Profile Information</h2>
+
+    <!-- LinkedIn Input -->
+    <div class="input-field">
+      <label for="linkedin">LinkedIn Profile Link</label>
+      <input type="url" id="linkedin" placeholder="Enter your LinkedIn profile link" required>
+    </div>
+
+    <!-- Resume Upload -->
+    <div class="input-field">
+      <label for="resume">Upload Resume</label>
+      <input type="file" id="resume" required>
+      <button onclick="alert('Resume uploaded!')">Upload Resume</button>
+    </div>
+  </section>
+
+</body>
+</html>
