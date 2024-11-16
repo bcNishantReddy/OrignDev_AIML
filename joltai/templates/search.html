@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Search</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f7fa;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: #ffffff;
+      border-bottom: 1px solid #ddd;
+    }
+
+    header .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    header nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    header nav ul li {
+      display: inline;
+    }
+
+    header nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-size: 1rem;
+      transition: color 0.3s ease;
+    }
+
+    header nav ul li a:hover {
+      color: #007bff;
+    }
+
+    .search-section {
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 800px;
+    }
+
+    .search-section h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #007bff;
+    }
+
+    .search-section label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      color: #555;
+    }
+
+    .search-section input,
+    .search-section button {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    .search-section button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .search-section button:hover {
+      background-color: #0056b3;
+    }
+
+    .skills-container {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-tag {
+      background-color: #007bff;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .skill-tag span {
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .loader {
+      display: none;
+      margin: 2rem auto;
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #007bff;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+
+    .results {
+      margin: 2rem auto;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+    }
+
+    .job-card {
+      background-color: white;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+    }
+
+    .job-card h3 {
+      margin: 0;
+      color: #007bff;
+    }
+
+    .job-card p {
+      margin: 0.5rem 0;
+    }
+
+    .job-card a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .job-card a:hover {
+      text-decoration: underline;
+    }
+
+    .timer-message {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: #555;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">JoltAI</div>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/search">Find Job</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="search-section">
+    <h1>Search for Jobs</h1>
+    <label for="searchType">Search Type</label>
+    <select id="searchType">
+      <option value="keyword">Search by Keywords</option>
+      <option value="resume">Search by Resume</option>
+      <option value="linkedin">Search by LinkedIn URL</option>
+    </select>
+
+    <!-- Keyword Search Inputs -->
+    <div id="keywordInputs">
+      <label for="skill">Skill</label>
+      <input type="text" id="skill" placeholder="Enter a skill">
+      <button type="button" id="addSkillBtn">Add Skill</button>
+      <div class="skills-container" id="selectedSkills"></div>
+      <label for="location">Location</label>
+      <input type="text" id="location" placeholder="Enter location">
+      <button onclick="searchJobs()">Search</button>
+    </div>
+
+    <!-- Resume Upload -->
+    <div id="resumeInput" style="display: none;">
+      <label for="resumeFile">Upload Resume</label>
+      <input type="file" id="resumeFile">
+      <button onclick="extractSkills()">Extract Skills</button>
+      
+      <div id="skillsContainer" class="skills-container" style="display: none;">
+          <h2>Extracted Skills:</h2>
+          <div id="skillsList"></div>
+          <button onclick="searchWithSkills()">Search</button>
+      </div>
+  </div>
+  
+
+    <!-- LinkedIn URL -->
+    <div id="linkedinInput" style="display: none;">
+      <label for="linkedinUrl">LinkedIn Profile URL</label>
+      <input type="url" id="linkedinUrl" placeholder="Paste your LinkedIn profile URL">
+      <button onclick="searchLinkedIn()">Search</button>
+    </div>
+  </div>
+
+  <div class="loader" id="loader"></div>
+  <div class="timer-message" id="timerMessage"></div>
+  <div class="results" id="results"></div>
+
+  <script>
+    const searchTypeDropdown = document.getElementById("searchType");
+    const keywordInputs = document.getElementById("keywordInputs");
+    const resumeInput = document.getElementById("resumeInput");
+    const linkedinInput = document.getElementById("linkedinInput");
+    const skillInput = document.getElementById("skill");
+    const selectedSkillsDiv = document.getElementById("selectedSkills");
+    const addSkillBtn = document.getElementById("addSkillBtn");
+    let selectedSkills = [];
+
+    searchTypeDropdown.addEventListener("change", () => {
+      const searchType = searchTypeDropdown.value;
+      keywordInputs.style.display = searchType === "keyword" ? "block" : "none";
+      resumeInput.style.display = searchType === "resume" ? "block" : "none";
+      linkedinInput.style.display = searchType === "linkedin" ? "block" : "none";
+    });
+
+    addSkillBtn.addEventListener("click", () => {
+      const skill = skillInput.value.trim();
+      if (skill && !selectedSkills.includes(skill)) {
+        selectedSkills.push(skill);
+        renderSelectedSkills();
+        skillInput.value = "";
+      }
+    });
+
+    function renderSelectedSkills() {
+      selectedSkillsDiv.innerHTML = "";
+      selectedSkills.forEach(skill => {
+        const skillTag = document.createElement("div");
+        skillTag.className = "skill-tag";
+        skillTag.innerHTML = `${skill} <span onclick="removeSkill('${skill}')">×</span>`;
+        selectedSkillsDiv.appendChild(skillTag);
+      });
+    }
+
+    function removeSkill(skillElement) {
+    const skillTag = skillElement.parentElement;
+    skillTag.remove();
+}
+
+
+async function extractSkills() {
+    const resumeInput = document.getElementById("resumeFile");
+    if (!resumeInput.files[0]) {
+        alert("Please upload a resume.");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("resume", resumeInput.files[0]);
+
+    const response = await fetch("/extract_skills", {
+        method: "POST",
+        body: formData,
+    });
+
+    const data = await response.json();
+
+    if (data.extracted_skills) {
+        const skillsContainer = document.getElementById("skillsContainer");
+        const skillsList = document.getElementById("skillsList");
+
+        // Display only the top 4 skills
+        const topSkills = data.extracted_skills.slice(0, 4);
+
+        skillsList.innerHTML = topSkills
+            .map(
+                (skill, index) =>
+                    `<div class="skill-tag" data-index="${index}">${skill} <span onclick="removeSkill(this)">✖</span></div>`
+            )
+            .join("");
+
+        skillsContainer.style.display = "block";
+    }
+}
+ 
+
+    async function searchJobs() {
+      const loader = document.getElementById("loader");
+      const resultsDiv = document.getElementById("results");
+      loader.style.display = "block";
+      resultsDiv.innerHTML = "";
+
+      const searchType = searchTypeDropdown.value;
+      const location = document.getElementById("location")?.value || "";
+
+      try {
+        const response = await fetch("/search", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ skills: selectedSkills, location, type: searchType }),
+        });
+
+        const data = await response.json();
+        loader.style.display = "none";
+
+        if (data.results && data.results.length) {
+          resultsDiv.innerHTML = data.results.map(job => `
+            <div class="job-card">
+              <h3>${job.title}</h3>
+              <p><strong>Company:</strong> ${job.company}</p>
+              <p><strong>Location:</strong> ${job.location}</p>
+              <a href="${job.url}" target="_blank">View Job</a>
+            </div>
+          `).join("");
+        } else {
+          resultsDiv.innerHTML = "<p>No jobs found.</p>";
+        }
+      } catch (error) {
+        loader.style.display = "none";
+        resultsDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+      }
+    }
+    async function searchWithSkills() {
+    const skillTags = document.querySelectorAll(".skill-tag");
+    
+    // Extract skill names from the tags (excluding the remove button text)
+    const selectedSkills = Array.from(skillTags).map(skillTag =>
+        skillTag.textContent.trim().slice(0, -1) // Remove the trailing "✖"
+    );
+
+    // Ensure there are skills to send
+    if (selectedSkills.length === 0) {
+        alert("Please select at least one skill before searching.");
+        return;
+    }
+
+    try {
+        const response = await fetch("/search", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ skills: selectedSkills }),
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch search results.");
+        }
+
+        const data = await response.json();
+
+        // Handle the response (e.g., display search results in the UI)
+        console.log(data); // Debugging
+        alert("Search results fetched successfully!");
+    } catch (error) {
+        console.error("Error during search:", error);
+        alert("An error occurred while searching. Please try again.");
+    }
+}
+
+
+    async function searchLinkedIn() {
+      const linkedinUrl = document.getElementById("linkedinUrl").value;
+      if (!linkedinUrl) {
+        alert("Please enter a valid LinkedIn URL.");
+        return;
+      }
+
+      const loader = document.getElementById("loader");
+      const resultsDiv = document.getElementById("results");
+      loader.style.display = "block";
+      resultsDiv.innerHTML = "";
+
+      try {
+        const response = await fetch("/search", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ linkedinUrl, type: "linkedin" }),
+        });
+
+        const data = await response.json();
+        loader.style.display = "none";
+
+        if (data.profile_data) {
+          resultsDiv.innerHTML = `
+            <div>
+              <h2>${data.profile_data.name}</h2>
+              <p>${data.profile_data.headline}</p>
+              <p><strong>Location:</strong> ${data.profile_data.location}</p>
+              <p><strong>Skills:</strong> ${data.profile_data.skills.join(", ")}</p>
+            </div>
+          `;
+        } else {
+          resultsDiv.innerHTML = "<p>No profile data found.</p>";
+        }
+      } catch (error) {
+        loader.style.display = "none";
+        resultsDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+      }
+    }
+  </script>
+</body>
+</html>
