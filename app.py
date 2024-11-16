@@ -67,22 +67,31 @@ def fetch_careerjet_job_listings(skill, location):
 
 @app.route('/')
 def index():
-    return render_template('search.html')
+    return render_template('index.html')
+@app.route('/profile')
+def profile():
+    return render_template('profile.html')
+@app.route('/quiz')
+def quiz():
+    return render_template('quiz.html')
 
-@app.route('/search', methods=['POST'])
+@app.route('/search', methods=['GET', 'POST'])
 def search_jobs():
-    skill = request.form.get('skill')
-    location = request.form.get('location')
+    if request.method == 'GET':
+        return render_template('search.html')
+    elif request.method == 'POST':
+        skill = request.form.get('skill')
+        location = request.form.get('location')
 
-    linkedin_jobs_v1 = fetch_linkedin_job_listings(skill, location, version="v1")
-    linkedin_jobs_v2 = fetch_linkedin_job_listings(skill, location, version="v2")
-    careerjet_jobs = fetch_careerjet_job_listings(skill, location)
+        linkedin_jobs_v1 = fetch_linkedin_job_listings(skill, location, version="v1")
+        linkedin_jobs_v2 = fetch_linkedin_job_listings(skill, location, version="v2")
+        careerjet_jobs = fetch_careerjet_job_listings(skill, location)
 
-    return jsonify({
-        "linkedin_v1": linkedin_jobs_v1,
-        "linkedin_v2": linkedin_jobs_v2,
-        "careerjet": careerjet_jobs
-    })
+        return jsonify({
+            "linkedin_v1": linkedin_jobs_v1,
+            "linkedin_v2": linkedin_jobs_v2,
+            "careerjet": careerjet_jobs
+        })
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='172.16.228.87', port=5000, debug=True, threaded=False)

@@ -152,10 +152,10 @@
     <div class="logo">unstop</div>
     <nav>
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="search.html">Job Search</a></li>
-        <li><a href="quiz.html">Quiz</a></li>
-        <li><a href="profile.html">Profile</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/search">Job Search</a></li>
+        <li><a href="/quiz">Quiz</a></li>
+        <li><a href="/profile">Profile</a></li>
       </ul>
     </nav>
   </header>
@@ -214,7 +214,7 @@
       const profileMessage = document.getElementById("profileMessage");
 
       if (!searchQuery) {
-        profileMessage.innerHTML = "Please update your profile details: <a href='profile.html'>Fill Profile</a>";
+        profileMessage.innerHTML = "Please update your profile details: <a href='/profile'>Fill Profile</a>";
       } else {
         profileMessage.innerHTML = "";
       }
