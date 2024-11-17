@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Generate Custom Message</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  
+  <div class="container">
+    <h1>Generate Custom Message for "{{ job_title }}"</h1>
+    <form method="GET">
+      <label for="linkedin">Enter your LinkedIn URL:</label>
+      <input type="url" id="linkedin" name="linkedin" required>
+      <button type="submit">Generate Message</button>
+    </form>
+  </div>
+</body>
+</html>

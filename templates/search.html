@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Job Search</title>
+  <link rel="stylesheet" href="static/css/styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f7f8fb;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid #ddd;
+      height: 6rem;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #007bff;
+    }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4rem 2rem;
+      background: linear-gradient(to bottom right, #eaf4ff, #b3d8ff);
+      color: #fff;
+    }
+
+    .hero-content {
+      flex: 1;
+      padding-right: 2rem;
+    }
+
+    .hero-content h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #007bff;
+      margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+      font-size: 1.3rem;
+      color: #555;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .hero-buttons button {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: #fff;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .hero-buttons button:hover {
+      background-color: #0056b3;
+    }
+
+    .hero-image {
+      flex: 1;
+      text-align: center;
+    }
+
+    .hero-image img {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Search Section */
+    .search-section {
+      padding: 2rem;
+      text-align: left;
+      background-color: #fff;
+      border-radius: 8px;
+      margin: 2rem auto;
+      max-width: 800px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .search-section h1 {
+      font-size: 2.5rem;
+      color: #333;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .big {
+      font-size: 1.2em;
+    }
+
+    .search-section label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      color: #555;
+    }
+
+    .search-section input,
+    .search-section select,
+    .search-section button {
+      width: 100%;
+      padding: 0.8rem;
+      margin-bottom: 1rem;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+
+    .search-section button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .search-section button:hover {
+      background-color: #0056b3;
+    }
+
+    .skills-container {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .skill-tag {
+      background-color: #007bff;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .skill-tag span {
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column-reverse;
+        text-align: left;
+      }
+
+      .hero-content {
+        padding-right: 0;
+        text-align: left;
+      }
+
+      .hero-content h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-content p {
+        font-size: 1.2rem;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .hero-image {
+        margin-bottom: 2rem;
+      }
+
+      .hero-image img {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">JoltAI</div>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/search">Find Job</a></li>
+        <li><a href="/profile">Build Profile</a></li>
+        <li><a href="/record">Interview prep</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Find Your Dream Job with JoltAI</h1>
+      <p>Empowering your career with AI-powered insights, personalized guidance, and cutting-edge tools.</p>
+      <div class="hero-buttons">
+        <button onclick="location.href='/search'">Find Job</button>
+        <button onclick="location.href='/profile'">Build Profile</button>
+      </div>
+    </div>
+    <div class="hero-image">
+      <img src="static/assets/freepik__candid-image-photography-natural-textures-highly-r__51748.png" alt="Career Growth">
+    </div>
+  </section>
+
+  <div class="search-section">
+    <h1>Search for Jobs</h1>
+    <label for="searchType">Search Type</label>
+    <select id="searchType">
+      <option value="keyword">Search by Keywords</option>
+      <option value="resume">Search by Resume</option>
+      <option value="linkedin">Search by LinkedIn URL</option>
+    </select>
+
+    <!-- Keyword Search Inputs -->
+    <div id="keywordInputs">
+      <label for="skill">Skill</label>
+      <input type="text" id="skill" placeholder="Enter a skill">
+      <button type="button" id="addSkillBtn">Add Skill</button>
+      <div class="skills-container" id="selectedSkills"></div>
+      <label for="location">Location</label>
+      <input type="text" id="location" placeholder="Enter location">
+      <button onclick="searchJobs()">Search</button>
+    </div>
+    <div style="margin-top: 1rem;">
+      <label for="platformFilter">Filter by Platform</label>
+      <select id="platformFilter" onchange="applyFilter()" class="form-select">
+        <option value="all">All</option>
+        <option value="linkedin">LinkedIn</option>
+        <option value="careerjet">Careerjet</option>
+      </select>
+    </div>
+    <div style="margin-top: 1rem;">
+      <label for="dateSort">Sort by Date</label>
+      <select id="dateSort" onchange="applyDateSort()" class="form-select">
+        <option value="none">None</option>
+        <option value="mostRecent">Most Recent</option>
+      </select>
+    </div>
+
+    <div id="resumeInput" style="display: none;">
+      <label for="resumeFile">Upload Resume</label>
+      <input type="file" id="resumeFile">
+      <button onclick="extractSkills()">Extract Skills</button>
+      <div id="skillsContainer" class="skills-container" style="display: none;">
+        <h2>Extracted Skills:</h2>
+        <div id="skillsList"></div>
+        <button onclick="searchWithSkills()">Search</button>
+      </div>
+    </div>
+
+    <div class="loader" id="loader" style="display: none;"></div>
+    <div id="results"></div>
+
+    <script>
+      let jobsData = [];
+
+      function applyFilter() {
+        updateDisplayedJobs();
+      }
+
+      function applyDateSort() {
+        updateDisplayedJobs();
+      }
+
+      function updateDisplayedJobs() {
+        let filteredJobs = jobsData;
+
+        // Apply platform filter
+        const platformFilterValue = document.getElementById("platformFilter").value;
+        if (platformFilterValue !== "all") {
+          filteredJobs = filteredJobs.filter(job => {
+            let platform = '';
+            if (job.url.includes("linkedin")) {
+              platform = 'linkedin';
+            } else if (job.url.includes("careerjet")) {
+              platform = 'careerjet';
+            }
+            return platform.includes(platformFilterValue);
+          });
+        }
+
+        // Apply date sort
+        const dateSortValue = document.getElementById("dateSort").value;
+        if (dateSortValue === "mostRecent") {
+          filteredJobs.sort((a, b) => {
+            const dateA = getJobDate(a);
+            const dateB = getJobDate(b);
+            return dateB - dateA;
+          });
+        }
+
+        displayJobs(filteredJobs);
+      }
+
+      const searchTypeDropdown = document.getElementById("searchType");
+      const keywordInputs = document.getElementById("keywordInputs");
+      const resumeInput = document.getElementById("resumeInput");
+      const linkedinInput = document.getElementById("linkedinInput");
+      const skillInput = document.getElementById("skill");
+      const selectedSkillsDiv = document.getElementById("selectedSkills");
+      const addSkillBtn = document.getElementById("addSkillBtn");
+      let selectedSkills = [];
+
+      searchTypeDropdown.addEventListener("change", () => {
+        const searchType = searchTypeDropdown.value;
+        keywordInputs.style.display = searchType === "keyword" ? "block" : "none";
+        resumeInput.style.display = searchType === "resume" ? "block" : "none";
+        linkedinInput.style.display = searchType === "linkedin" ? "block" : "none";
+      });
+
+      addSkillBtn.addEventListener("click", () => {
+        const skill = skillInput.value.trim();
+        if (skill && !selectedSkills.includes(skill)) {
+          selectedSkills.push(skill);
+          renderSelectedSkills();
+          skillInput.value = "";
+        }
+      });
+
+      function renderSelectedSkills() {
+        selectedSkillsDiv.innerHTML = "";
+        selectedSkills.forEach(skill => {
+          const skillTag = document.createElement("div");
+          skillTag.className = "skill-tag";
+          skillTag.innerHTML = `${skill} <span onclick="removeSkill('${skill}')">×</span>`;
+          selectedSkillsDiv.appendChild(skillTag);
+        });
+      }
+
+      function removeSkill(skill) {
+        selectedSkills = selectedSkills.filter(s => s !== skill);
+        renderSelectedSkills();
+      }
+
+      async function extractSkills() {
+        const resumeInput = document.getElementById("resumeFile");
+        if (!resumeInput.files[0]) {
+          alert("Please upload a resume.");
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append("resume", resumeInput.files[0]);
+
+        const response = await fetch("/extract_skills", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await response.json();
+
+        if (data.extracted_skills) {
+          const skillsContainer = document.getElementById("skillsContainer");
+          const skillsList = document.getElementById("skillsList");
+
+          const topSkills = data.extracted_skills.slice(0, 4);
+          selectedSkills = topSkills;
+
+          skillsList.innerHTML = "";
+          topSkills.forEach(skill => {
+            const skillTag = document.createElement("div");
+            skillTag.className = "skill-tag";
+            skillTag.innerHTML = `${skill} <span onclick="removeSkill('${skill}')">×</span>`;
+            skillsList.appendChild(skillTag);
+          });
+
+          skillsContainer.style.display = "block";
+        }
+      }
+
+      async function searchJobs() {
+        const loader = document.getElementById("loader");
+        const resultsDiv = document.getElementById("results");
+        loader.style.display = "block";
+        resultsDiv.innerHTML = "";
+
+        const searchType = searchTypeDropdown.value;
+        const location = document.getElementById("location")?.value || "";
+
+        try {
+          const response = await fetch("/search", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ skills: selectedSkills, location, type: searchType }),
+          });
+
+          const data = await response.json();
+          loader.style.display = "none";
+
+          if (data.results && data.results.length > 0) {
+            jobsData = data.results;
+            updateDisplayedJobs();
+          } else {
+            resultsDiv.innerHTML = "<p>No jobs found.</p>";
+          }
+        } catch (error) {
+          loader.style.display = "none";
+          resultsDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+        }
+      }
+
+      async function searchWithSkills() {
+        const loader = document.getElementById("loader");
+        const resultsDiv = document.getElementById("results");
+        loader.style.display = "block";
+        resultsDiv.innerHTML = "";
+
+        try {
+          const response = await fetch("/search", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              skills: selectedSkills,
+              type: "resume",
+            }),
+          });
+
+          const data = await response.json();
+          loader.style.display = "none";
+
+          if (data.results && data.results.length > 0) {
+            jobsData = data.results;
+            updateDisplayedJobs();
+          } else {
+            resultsDiv.innerHTML = "<p>No jobs found.</p>";
+          }
+        } catch (error) {
+          loader.style.display = "none";
+          resultsDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+        }
+      }
+
+      function getJobDate(job) {
+        let dateStr = '';
+        if (job.url.includes("careerjet")) {
+          dateStr = job.date_posted;
+        } else if (job.url.includes("linkedin")) {
+          dateStr = job.postDate;
+        } else {
+          return new Date(0); // default to oldest date
+        }
+        // Now, parse dateStr into Date object
+        const date = parseJobDate(dateStr);
+        return date;
+      }
+
+      function parseJobDate(dateStr) {
+        // Try to parse standard date formats
+        let date = new Date(dateStr);
+        if (!isNaN(date)) {
+          return date;
+        }
+
+        // Handle relative dates like 'Posted 3 days ago' or '2 days ago'
+        let regex = /(\d+)\s+(hour|hours|day|days|week|weeks|month|months|year|years)\s+ago/i;
+        let match = dateStr.match(regex);
+        if (match) {
+          let value = parseInt(match[1]);
+          let unit = match[2].toLowerCase();
+          let now = new Date();
+          switch (unit) {
+            case 'hour':
+            case 'hours':
+              now.setHours(now.getHours() - value);
+              break;
+            case 'day':
+            case 'days':
+              now.setDate(now.getDate() - value);
+              break;
+            case 'week':
+            case 'weeks':
+              now.setDate(now.getDate() - value * 7);
+              break;
+            case 'month':
+            case 'months':
+              now.setMonth(now.getMonth() - value);
+              break;
+            case 'year':
+            case 'years':
+              now.setFullYear(now.getFullYear() - value);
+              break;
+          }
+          return now;
+        }
+
+        // If all else fails, return a very old date
+        return new Date(0);
+      }
+
+      function displayJobs(jobs) {
+        const resultsDiv = document.getElementById("results");
+        resultsDiv.innerHTML = '';
+        if (jobs.length > 0) {
+          jobs.forEach(job => {
+            let platform = '';
+            if (job.url.includes("careerjet")) {
+              platform = 'careerjet';
+              resultsDiv.innerHTML += `
+                <div class="job-card" data-platform="${platform}">
+                  <h3>${job.title}</h3>
+                  <p><strong>Company:</strong> ${job.company}</p>
+                  <p><strong>Location:</strong> ${job.location}</p>
+                  <p><strong>Date:</strong> ${job.date_posted}</p>
+                  <p><strong>Platform:</strong> Careerjet</p>
+                  <a href="${job.url}" target="_blank" class="big">View Job</a>
+                  <a class="btn btn-primary" href="/compatibility_score/${encodeURIComponent(job.title)}">Compatibility Score</a>
+                  <a class="btn btn-secondary" href="/custom_message/${encodeURIComponent(job.title)}">Generate Custom Message</a>
+
+                </div>
+              `;
+            } else if (job.url.includes("linkedin")) {
+              platform = 'linkedin';
+              resultsDiv.innerHTML += `
+                <div class="job-card" data-platform="${platform}">
+                  <h3>${job.title}</h3>
+                  <p><strong>Company:</strong> ${job.company.name}</p>
+                  <p><strong>Location:</strong> ${job.location}</p>
+                  <p><strong>Date:</strong> ${job.postDate}</p>
+                  <p><strong>Platform:</strong> LinkedIn</p>
+                  <a href="${job.url}" target="_blank" class="big">View Job</a>
+                  <a class="btn btn-primary" href="/compatibility_score/${encodeURIComponent(job.title)}">Compatibility Score</a>
+                  <a class="btn btn-secondary" href="/custom_message/${encodeURIComponent(job.title)}">Generate Custom Message</a>
+
+                </div>
+              `;
+            }
+          });
+        } else {
+          resultsDiv.innerHTML = "<p>No jobs found.</p>";
+        }
+      }
+
+      // Placeholder functions for navigation
+      function navigateToCompatibility(jobTitleEncoded) {
+        const jobTitle = decodeURIComponent(jobTitleEncoded);
+        window.location.href = `/compatibility_score/${encodeURIComponent(jobTitle)}`;
+      }
+
+      function navigateToCustomMessage(jobTitleEncoded) {
+        const jobTitle = decodeURIComponent(jobTitleEncoded);
+        window.location.href = `/custom_message/${encodeURIComponent(jobTitle)}`;
+      }
+    </script>
+  </div>
+</body>
+</html>

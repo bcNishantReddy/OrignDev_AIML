@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interview Report</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f8fb;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid #ddd;
+            height: 4rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+            padding: 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #007bff;
+        }
+
+        /* Main Section */
+        .report-section {
+            padding: 4rem 2rem;
+            text-align: center;
+            background-color: #fff;
+            max-width: 1100px;
+            margin: 3rem auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .report-section h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .report-section h2 {
+            font-size: 1.8rem;
+            color: #007bff;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .report-section p {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .report-section h1 {
+                font-size: 2rem;
+            }
+
+            .report-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .report-section p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+    <div class="logo">unstop</div>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/search">Find Job</a></li>
+            <li><a href="/profile">Build Profile</a></li>
+            <li><a href="/record">Interview prep</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <!-- Interview Report Section -->
+    <section class="report-section">
+        <h1>Interview Report</h1>
+        
+        <h2>Transcript</h2>
+        <p>{{ report.transcript }}</p>
+
+        <h2>Eye Contact</h2>
+        <p>{{ report.eye_contact }}</p>
+
+        <h2>Posture Issues</h2>
+        <p>{{ report.posture_issues }}</p>
+
+        <h2>Gesture Count</h2>
+        <p>{{ report.gesture_count }}</p>
+
+        <h2>Video Duration</h2>
+        <p>{{ report.video_duration }}</p>
+
+        <h2>Suggestions</h2>
+        <p>{{ report.gemini_suggestions }}</p>
+    </section>
+</main>
+
+</body>
+</html>

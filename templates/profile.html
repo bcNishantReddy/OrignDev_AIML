@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Building - Job Finder Platform</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background-color: #f5f7fb;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      background-color: #ffffff;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-size: 1.2rem;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+      color: #007bff;
+    }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4rem 2rem;
+      background: linear-gradient(to bottom right, #eef7ff, #d7e8ff);
+    }
+
+    .hero-text {
+      flex: 1;
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-text h1 {
+      font-size: 3.5rem;
+      color: #007bff;
+    }
+
+    .hero-text p {
+      margin: 1.5rem 0;
+      font-size: 1.5rem;
+      color: #555;
+    }
+
+    .hero-image {
+      flex: 1;
+      max-width: 500px;
+      height: auto;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Profile Section */
+    .profile-section {
+      padding: 3rem 2rem;
+      text-align: center;
+      background-color: #ffffff;
+      border-radius: 8px;
+      margin: 2rem auto;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+    }
+
+    .profile-section h2 {
+      font-size: 2.5rem;
+      color: #007bff;
+      margin-bottom: 2rem;
+    }
+
+    .input-field {
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .input-field input {
+      padding: 1rem;
+      width: 100%;
+      max-width: 400px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .input-field button {
+      padding: 1rem 2rem;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .input-field button:hover {
+      background-color: #0056b3;
+    }
+
+    .error {
+      color: red;
+      margin: 1rem 0;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero-text h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero-text p {
+        font-size: 1.2rem;
+      }
+
+      .profile-section h2 {
+        font-size: 2rem;
+      }
+
+      .input-field input {
+        font-size: 1rem;
+      }
+
+      .input-field button {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <div class="logo">JoltAI</div>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/search">Find Job</a></li>
+        <li><a href="/profile">Build Profile</a></li>
+        <li><a href="/record">Interview prep</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Build Your Professional Profile</h1>
+      <p>Get started by adding your LinkedIn profile to complete your professional profile.</p>
+    </div>
+    <div class="hero-image">
+      <img src="static/assets/freepik__candid-image-photography-natural-textures-highly-r__11039.png">
+    </div>
+  </section>
+
+  <!-- Profile Section -->
+  <section class="profile-section">
+    <h2>Profile Information</h2>
+    <form id="profile-form" method="POST" action="{{ url_for('analyze_profile') }}">
+      <div class="input-field">
+        <label for="linkedin">LinkedIn Profile URL:</label>
+        <input type="url" id="linkedin" name="linkedin" placeholder="Enter LinkedIn Profile URL" required>
+      </div>
+      <div>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="error">{{ messages[0] }}</div>
+        {% endif %}
+        {% endwith %}
+      </div>
+      <div class="input-field">
+        <button type="submit">Analyze Profile</button>
+      </div>
+    </form>
+  </section>
+</body>
+
+</html>
