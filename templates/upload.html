@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Video - Interview Analysis</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f8fb;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid #ddd;
+            height: 4rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+            padding: 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #007bff;
+        }
+
+        /* Main Section */
+        .upload-section {
+            padding: 4rem 2rem;
+            text-align: center;
+            background-color: #fff;
+            max-width: 900px;
+            margin: 3rem auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .upload-section h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .upload-section h2 {
+            font-size: 2rem;
+            color: #007bff;
+            margin-bottom: 1.5rem;
+        }
+
+        .upload-section ul {
+            list-style: disc inside;
+            text-align: left;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: #555;
+            font-size: 1.2rem;
+        }
+
+        .upload-section label {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 0.5rem;
+            display: block;
+            text-align: left;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .upload-section input[type="file"] {
+            display: block;
+            margin: 1rem auto;
+            font-size: 1rem;
+            padding: 0.5rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .upload-section button {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        .upload-section button:hover {
+            background-color: #0056b3;
+        }
+
+        .message {
+            margin-top: 2rem;
+            font-size: 1.1rem;
+            color: #d9534f;
+        }
+
+        .message a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        /* Spinner styles */
+        .spinner {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        .blurred {
+            filter: blur(3px);
+            pointer-events: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .upload-section h1 {
+                font-size: 2rem;
+            }
+
+            .upload-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .upload-section ul {
+                font-size: 1rem;
+            }
+
+            .upload-section label {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+    <div class="logo">unstop</div>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/search">Find Job</a></li>
+            <li><a href="/profile">Build Profile</a></li>
+            <li><a href="/record">Interview prep</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <!-- Upload Section -->
+    <section class="upload-section">
+        <h1>Interview Questions</h1>
+        <ul>
+            {% for question in questions %}
+                <li>{{ question }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Upload Your Video</h2>
+        <form id="uploadForm" action="/analyze_video" method="post" enctype="multipart/form-data">
+            <!-- Hidden input to send the questions back to the server -->
+            {% for question in questions %}
+                <input type="hidden" name="questions" value="{{ question }}">
+            {% endfor %}
+            <label for="video">Select MP4 Video File:</label>
+            <input type="file" id="video" name="video" accept="video/mp4" required>
+            <button type="submit">Upload and Analyze</button>
+        </form>
+
+        <div class="message">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            {% endwith %}
+        </div>
+    </section>
+
+    <!-- Spinner -->
+    <div class="spinner" id="spinner"></div>
+</main>
+
+<script>
+    const form = document.getElementById('uploadForm');
+    const spinner = document.getElementById('spinner');
+
+    form.addEventListener('submit', () => {
+        spinner.style.display = 'block';
+        document.body.classList.add('blurred');
+    });
+</script>
+
+</body>
+</html>
